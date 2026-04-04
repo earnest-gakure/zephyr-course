@@ -1,6 +1,5 @@
 manifest:
   version: 1.0
-
   projects:
     - name: zephyr
       url: https://github.com/zephyrproject-rtos/zephyr
@@ -11,4 +10,5 @@ manifest:
           - hal_nxp
           - hal_stm32
           - hal_nordic
+          - hal_rpi_pico
         path-prefix: deps
