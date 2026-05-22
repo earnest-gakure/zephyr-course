@@ -7,5 +7,7 @@ common:
 
 tests:
   homework.unit.ring_buf:
-    platform_allow: native_sim
+    platform_allow: 
+     - native_sim
+     - qemu_x86
     timeout: 60

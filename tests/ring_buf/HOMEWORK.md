@@ -52,8 +52,13 @@ actual test body.
 
 ## Running the Tests
 
+> **Platform note**
+> - **Linux / WSL** — use `native_sim`.
+> - **Windows (without WSL)** — `native_sim` is not supported on Windows, use `qemu_x86` instead.
+
 Run from the workspace root, or `cd tests/ring_buf` and use `-T .`:
 
+**Linux / WSL**
 ```bash
 # Build and run
 west twister -T tests/ring_buf -p native_sim
@@ -63,6 +68,18 @@ west twister -T tests/ring_buf -p native_sim -v
 
 # Build only (fastest way to find compile errors)
 west twister -T tests/ring_buf -p native_sim -b
+```
+
+**Windows**
+```bash
+# Build and run
+west twister -T tests/ring_buf -p qemu_x86
+
+# Verbose per-test output
+west twister -T tests/ring_buf -p qemu_x86 -v
+
+# Build only (fastest way to find compile errors)
+west twister -T tests/ring_buf -p qemu_x86 -b
 ```
 
 ---
@@ -83,10 +100,16 @@ For each test:
 3. Write the test body using `zassert_*` assertions to verify the expected behavior.
 4. Re-run Twister and confirm the test passes.
 
-**Acceptance:** all 8 tests pass on `native_sim`.
+**Acceptance:** all 8 tests pass.
 
+**Linux / WSL**
 ```bash
 west twister -T tests/ring_buf -p native_sim
+```
+
+**Windows**
+```bash
+west twister -T tests/ring_buf -p qemu_x86
 ```
 
 ### Tag `l8-task1`
@@ -97,11 +120,26 @@ After every test passes, tag the commit `l8-task1`.
 
 ## Task 2 — Coverage Analysis  `git tag l8-task2`
 
+**Linux / WSL**
 ```bash
 west twister -T tests/ring_buf -p native_sim \
     --coverage --coverage-tool gcovr \
     --coverage-basedir app/modules/ring_buf
 ```
+
+**Windows**
+```bash
+west twister -T tests/ring_buf -p qemu_x86 \
+    --coverage --coverage-tool gcovr \
+    --coverage-basedir app/modules/ring_buf \
+    --gcov-tool <ZEPHYR_SDK_PATH>/x86_64-zephyr-elf/bin/x86_64-zephyr-elf-gcov
+```
+
+> Replace `<ZEPHYR_SDK_PATH>` with the full path to your SDK root (e.g. `C:/zephyr-sdk-0.17.4`).
+> Alternatively, set the `ZEPHYR_SDK_INSTALL_DIR` environment variable to your SDK root and omit
+> `--gcov-tool` — Twister will locate the tool automatically.
+> See [Zephyr SDK setup](https://docs.zephyrproject.org/latest/develop/toolchains/zephyr_sdk.html)
+> for details about `ZEPHYR_SDK_INSTALL_DIR`.
 
 1. Run the command above to generate the coverage report.
 2. Open `twister-out/coverage/index.html` in a browser and click into `ring_buf.c`.
