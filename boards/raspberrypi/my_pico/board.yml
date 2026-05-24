@@ -1,0 +1,5 @@
+board:
+  name: my_pico
+  vendor: raspberrypi
+  socs:
+    - name: rp2040

@@ -1,0 +1,18 @@
+identifier: my_pico/rp2040
+name: My Custom Pico Board
+type: mcu
+arch: arm
+toolchain:
+  - zephyr
+  - gnuarmemb
+  - xtools
+ram: 264
+flash: 2048
+supported:
+  - gpio
+  - i2c
+  - spi
+  - usb_device
+  - pwm
+  - watchdog
+  - counter
