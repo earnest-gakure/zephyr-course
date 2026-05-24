@@ -1,0 +1,12 @@
+identifier: my_pico_scratch/rp2040
+name: My Pico Scratch Board
+type: mcu
+arch: arm
+toolchain:
+  - zephyr
+  - gnuarmemb
+  - xtools
+ram: 264
+flash: 2048
+supported:
+  - gpio
